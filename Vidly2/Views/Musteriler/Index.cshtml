@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Vidly2.Models.Musteri>
+@{
+    ViewBag.Title = "Müşteriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Müşteriler</h2>
+@if (!Model.Any())
+{
+    <p>Henüz hiç müşterimiz yok.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Müşteriler</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var musteri in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@musteri.Ad, "Ayrintilar", "Musteriler", new { id = musteri.Id }, null)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+

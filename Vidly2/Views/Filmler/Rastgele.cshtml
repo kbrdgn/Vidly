@@ -1,0 +1,26 @@
+﻿@model Vidly2.ViewModels.RastgeleFilmViewModel
+@{
+    ViewBag.Title = "Rastgele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var className = Model.Musteriler.Count > 0 ? "popular" : null;
+}
+
+<h2 class="@className">@Model.Film.Ad</h2>
+
+@if (Model.Musteriler.Count == 0)
+{
+    <text>Bu filmi daha önce kimse kiralamadı.</text>
+}
+else
+{
+    <ul>
+        @foreach (var musteri in Model.Musteriler)
+        {
+            <li>@musteri.Ad</li>
+        }
+    </ul>
+}
+

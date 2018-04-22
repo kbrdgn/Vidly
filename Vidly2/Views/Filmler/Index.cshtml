@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Vidly2.Models.Film>
+@{
+    ViewBag.Title = "Filmler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Filmler</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Film</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var film in Model)
+    {
+        <tr>
+            <td>@film.Ad</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
