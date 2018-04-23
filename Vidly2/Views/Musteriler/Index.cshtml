@@ -15,13 +15,16 @@ else
         <thead>
         <tr>
             <th>Müşteriler</th>
+            <th>İndirim Oranı</th>
+
         </tr>
         </thead>
         <tbody>
-        @foreach (var musteri in Model)
+        @foreach (var musteri in Model)     // here we iterate over our object and the query is actually executed here.
         {
             <tr>
                 <td>@Html.ActionLink(@musteri.Ad, "Ayrintilar", "Musteriler", new { id = musteri.Id }, null)</td>
+                <td>%@musteri.UyelikTuru.IndirimOrani</td>
             </tr>
         }
         </tbody>
