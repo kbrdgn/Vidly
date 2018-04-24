@@ -259,3 +259,12 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Vidly2/Migrations/201804241922071_AddTurIdFKToFilms.Designer.cs
+/Vidly2/Migrations/201804241922071_AddTurIdFKToFilms.cs
+/Vidly2/Migrations/201804241910223_UpdateFilm1.resx
+/Vidly2/Migrations/201804241910223_UpdateFilm1.Designer.cs
+/Vidly2/Migrations/201804241910223_UpdateFilm1.cs
+/Vidly2/Migrations/201804241907025_UpdateFilm.resx
+/Vidly2/Migrations/201804241907025_UpdateFilm.Designer.cs
+/Vidly2/Migrations/201804241907025_UpdateFilm.cs
+/Vidly2/Migrations/201804232137387_PopulateTur.resx

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,21 +11,34 @@ namespace Vidly2.Controllers
 {
     public class FilmlerController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public FilmlerController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         // GET: Film
         public ActionResult Index()
         {
-            var filmler = FilmleriGetir();
+            var filmler = _context.Filmler.Include(f => f.Tur).ToList();
             return View(filmler);
         }
 
-
-        private IEnumerable<Film> FilmleriGetir()
+        // GET: Filmler/Ayrintilar/id
+        public ActionResult Ayrintilar(int id)
         {
-            return new List<Film>
-            {
-                new Film { Id = 1, Ad = "Dr. Strange" },
-                new Film { Id = 2, Ad = "The Shawshank Redemption" }
-            };
+            var film = _context.Filmler.Include(f => f.Tur).SingleOrDefault(f => f.Id == id);
+
+            if (film == null)
+                return HttpNotFound();
+
+            return View(film);
         }
 
         // GET: Filmler/Rastgele

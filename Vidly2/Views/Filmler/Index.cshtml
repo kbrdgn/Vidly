@@ -15,7 +15,8 @@
     @foreach (var film in Model)
     {
         <tr>
-            <td>@film.Ad</td>
+            <td>@Html.ActionLink(@film.Ad, "Ayrintilar", "Filmler", new {id = film.Id}, null)</td>
+            <td>@film.Tur.Ad</td>
         </tr>
     }
     </tbody>

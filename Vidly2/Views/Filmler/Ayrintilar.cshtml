@@ -1,0 +1,15 @@
+﻿@model Vidly2.Models.Film
+@{
+    ViewBag.Title = "Ayrintilar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Ad</h2>
+<ul>
+    <li>Genre: @Model.Tur.Ad</li>
+    <li>Release Date: @Model.VizyonTarihi.ToLongDateString()</li>
+    <li>Date Added: @Model.EklenmeTarihi.ToLongDateString()</li>
+    <li>Number in Stock: @Model.StoktakiSayi</li>
+</ul>
+
+

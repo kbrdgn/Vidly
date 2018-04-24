@@ -14,7 +14,7 @@ namespace Vidly2.Controllers
 
         public MusterilerController()
         {
-            _context = new ApplicationDbContext(); // dbContest is a disposable (tek kullanımlık) object.
+            _context = new ApplicationDbContext(); // dbContext is a disposable (tek kullanımlık) object.
         }
 
         protected override void Dispose(bool disposing)
@@ -35,7 +35,7 @@ namespace Vidly2.Controllers
 
         public ActionResult Ayrintilar(int id)
         {
-            var musteri = _context.Musteriler.SingleOrDefault(c => c.Id == id);     // because of SingleOrDefault method, query is immediately executed again.
+            var musteri = _context.Musteriler.Include(c => c.UyelikTuru).SingleOrDefault(c => c.Id == id);     // because of SingleOrDefault method, query is immediately executed again.
 
             if (musteri == null)
             {

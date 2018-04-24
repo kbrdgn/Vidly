@@ -6,4 +6,11 @@
 }
 
 <h2>@Model.Ad</h2>
+<ul>
+    <li>Membership Type: @Model.UyelikTuru.Ad</li>
+    @if (Model.DogumTarihi.HasValue)
+    {
+        <li>Doğum Günü: @Model.DogumTarihi.Value.ToShortDateString()</li>
+    }
+</ul>
 

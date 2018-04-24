@@ -15,5 +15,6 @@ namespace Vidly2.Models
         public bool BulteneAboneMi { get; set; }
         public UyelikTuru UyelikTuru { get; set; }  // a navigation property from customer to its membershipType
         public byte UyelikTuruId { get; set; }  // Entity framework recognizes this convention and treats this property as a foreign key.
+        public DateTime? DogumTarihi { get; set; }
     }
 }

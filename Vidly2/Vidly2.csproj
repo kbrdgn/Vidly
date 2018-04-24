@@ -197,30 +197,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804221848379_InitialModel.cs" />
-    <Compile Include="Migrations\201804221848379_InitialModel.Designer.cs">
-      <DependentUpon>201804221848379_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\201804242035448_AddAdToUyelikTuru.cs" />
+    <Compile Include="Migrations\201804242035448_AddAdToUyelikTuru.Designer.cs">
+      <DependentUpon>201804242035448_AddAdToUyelikTuru.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804222023575_AddBulteneAboneMiToMusteri.cs" />
-    <Compile Include="Migrations\201804222023575_AddBulteneAboneMiToMusteri.Designer.cs">
-      <DependentUpon>201804222023575_AddBulteneAboneMiToMusteri.cs</DependentUpon>
+    <Compile Include="Migrations\201804242145515_PopulateTurs.cs" />
+    <Compile Include="Migrations\201804242145515_PopulateTurs.Designer.cs">
+      <DependentUpon>201804242145515_PopulateTurs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804222055337_AddUyelikTuru.cs" />
-    <Compile Include="Migrations\201804222055337_AddUyelikTuru.Designer.cs">
-      <DependentUpon>201804222055337_AddUyelikTuru.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804222058420_PopulateUyelikTurus.cs" />
-    <Compile Include="Migrations\201804222058420_PopulateUyelikTurus.Designer.cs">
-      <DependentUpon>201804222058420_PopulateUyelikTurus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804230701162_ApplyAnnotationsToMusteriAd.cs" />
-    <Compile Include="Migrations\201804230701162_ApplyAnnotationsToMusteriAd.Designer.cs">
-      <DependentUpon>201804230701162_ApplyAnnotationsToMusteriAd.cs</DependentUpon>
+    <Compile Include="Migrations\201804242155299_PopulateUyelikTurleri.cs" />
+    <Compile Include="Migrations\201804242155299_PopulateUyelikTurleri.Designer.cs">
+      <DependentUpon>201804242155299_PopulateUyelikTurleri.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Tur.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Musteri.cs" />
     <Compile Include="Models\UyelikTuru.cs" />
@@ -291,6 +284,7 @@
     <Content Include="Views\Musteriler\Index.cshtml" />
     <Content Include="Views\Musteriler\Ayrintilar.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Filmler\Ayrintilar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,20 +303,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804221848379_InitialModel.resx">
-      <DependentUpon>201804221848379_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804242035448_AddAdToUyelikTuru.resx">
+      <DependentUpon>201804242035448_AddAdToUyelikTuru.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804222023575_AddBulteneAboneMiToMusteri.resx">
-      <DependentUpon>201804222023575_AddBulteneAboneMiToMusteri.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804242145515_PopulateTurs.resx">
+      <DependentUpon>201804242145515_PopulateTurs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804222055337_AddUyelikTuru.resx">
-      <DependentUpon>201804222055337_AddUyelikTuru.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804222058420_PopulateUyelikTurus.resx">
-      <DependentUpon>201804222058420_PopulateUyelikTurus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804230701162_ApplyAnnotationsToMusteriAd.resx">
-      <DependentUpon>201804230701162_ApplyAnnotationsToMusteriAd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804242155299_PopulateUyelikTurleri.resx">
+      <DependentUpon>201804242155299_PopulateUyelikTurleri.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
