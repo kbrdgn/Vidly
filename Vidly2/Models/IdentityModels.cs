@@ -22,6 +22,7 @@ namespace Vidly2.Models
     {
         public DbSet<Musteri> Musteriler { get; set; }    // Represents the Customer table in the database.
         public DbSet<Film> Filmler { get; set; }
+        public DbSet<UyelikTuru> UyelikTurleri { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

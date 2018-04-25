@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly2.Models;
+using Vidly2.ViewModels;
 
 namespace Vidly2.Controllers
 {
@@ -20,6 +21,40 @@ namespace Vidly2.Controllers
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
+        }
+
+
+        public ActionResult MusteriForm()
+        {
+            var uyelikTurleri = _context.UyelikTurleri.ToList();
+            var viewModel = new MusteriFormViewModel
+            {
+                UyelikTurleri = uyelikTurleri
+            };
+
+            return View(viewModel);
+        }
+
+        // Eger action larimiz modify data yapiyorsa HttpGet tarafindan erisilmemeli, Post oldugunu garantiledik.
+        [HttpPost]
+        public ActionResult Kaydet(Musteri musteri) // model binding
+        {
+            if (musteri.Id == 0)
+            {
+                _context.Musteriler.Add(musteri);
+            }
+            else
+            {
+                var musteriInDb = _context.Musteriler.Single(m => m.Id == musteri.Id);
+                musteriInDb.Ad = musteri.Ad;
+                musteriInDb.DogumTarihi = musteri.DogumTarihi;
+                musteriInDb.UyelikTuru = musteri.UyelikTuru;
+                musteriInDb.BulteneAboneMi = musteri.BulteneAboneMi;
+            }
+            
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Musteriler");
         }
 
         // GET: Musteriler
@@ -43,6 +78,24 @@ namespace Vidly2.Controllers
             }
 
             return View(musteri);
+        }
+
+        public ActionResult Duzenle(int id)
+        {
+            var musteri = _context.Musteriler.SingleOrDefault(m => m.Id == id);
+
+            if (musteri == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new MusteriFormViewModel
+            {
+                Musteri =  musteri,
+                UyelikTurleri = _context.UyelikTurleri.ToList()
+            };
+
+            return View("MusteriForm", viewModel);
         }
     }
 }

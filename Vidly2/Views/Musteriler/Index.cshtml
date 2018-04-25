@@ -24,7 +24,7 @@ else
         @foreach (var musteri in Model)     // here we iterate over our object and the query is actually executed here.
         {
             <tr>
-                <td>@Html.ActionLink(@musteri.Ad, "Ayrintilar", "Musteriler", new { id = musteri.Id }, null)</td>
+                <td>@Html.ActionLink(@musteri.Ad, "Duzenle", "Musteriler", new { id = musteri.Id }, null)</td>
                 <td>@musteri.UyelikTuru.Ad</td>
                 <td>%@musteri.UyelikTuru.IndirimOrani</td>
             </tr>
