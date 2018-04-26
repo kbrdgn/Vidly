@@ -1,0 +1,44 @@
+﻿@model Vidly2.ViewModels.FilmFormViewModel
+@{
+    ViewBag.Title = "Yeni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+
+@using (Html.BeginForm("Kaydet", "Filmler"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Film.Ad)
+        @Html.TextBoxFor(m => m.Film.Ad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Film.Ad)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Film.VizyonTarihi, "Vizyon Tarihi")
+        @Html.TextBoxFor(m => m.Film.VizyonTarihi, "{0: d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Film.VizyonTarihi)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Film.TurId)
+        @Html.DropDownListFor(m => m.Film.TurId, new SelectList(Model.Turler,
+                      "Id", "Ad"), "Bir tür seçiniz", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Film.TurId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Film.StoktakiSayi, "Stoktaki Sayı")
+        @Html.TextBoxFor(m => m.Film.StoktakiSayi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Film.StoktakiSayi)
+    </div>
+
+    //@Html.Hidden("Film.Id", (Model.Film != null) ? Model.Film.Id : 0)
+    //@Html.Hidden("Film.Id", Model.Film?.Id ?? 0)
+   // @Html.HiddenFor(m => m.Film.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

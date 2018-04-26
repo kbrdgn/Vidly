@@ -209,6 +209,18 @@
     <Compile Include="Migrations\201804242155299_PopulateUyelikTurleri.Designer.cs">
       <DependentUpon>201804242155299_PopulateUyelikTurleri.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804252227272_MakeTurdDRequired.cs" />
+    <Compile Include="Migrations\201804252227272_MakeTurdDRequired.Designer.cs">
+      <DependentUpon>201804252227272_MakeTurdDRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804260727027_FilmFKDuzeltme.cs" />
+    <Compile Include="Migrations\201804260727027_FilmFKDuzeltme.Designer.cs">
+      <DependentUpon>201804260727027_FilmFKDuzeltme.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804260742318_ChangeTurIdToByte.cs" />
+    <Compile Include="Migrations\201804260742318_ChangeTurIdToByte.Designer.cs">
+      <DependentUpon>201804260742318_ChangeTurIdToByte.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Film.cs" />
@@ -217,8 +229,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Musteri.cs" />
     <Compile Include="Models\UyelikTuru.cs" />
+    <Compile Include="Models\UyeOlmakIcinMin18Yas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\FilmFormViewModel.cs" />
     <Compile Include="ViewModels\RastgeleFilmViewModel.cs" />
     <Compile Include="ViewModels\MusteriFormViewModel.cs" />
   </ItemGroup>
@@ -287,6 +301,7 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Filmler\Ayrintilar.cshtml" />
     <Content Include="Views\Musteriler\MusteriForm.cshtml" />
+    <Content Include="Views\Filmler\FilmForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -313,6 +328,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804242155299_PopulateUyelikTurleri.resx">
       <DependentUpon>201804242155299_PopulateUyelikTurleri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804252227272_MakeTurdDRequired.resx">
+      <DependentUpon>201804252227272_MakeTurdDRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804260727027_FilmFKDuzeltme.resx">
+      <DependentUpon>201804260727027_FilmFKDuzeltme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804260742318_ChangeTurIdToByte.resx">
+      <DependentUpon>201804260742318_ChangeTurIdToByte.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

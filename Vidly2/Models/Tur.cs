@@ -8,7 +8,7 @@ namespace Vidly2.Models
 {
     public class Tur
     {
-        public int Id { get; set; }
+        public byte Id { get; set; }
         [Required]
         [StringLength(255)]
         public string Ad { get; set; }

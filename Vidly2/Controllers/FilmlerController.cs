@@ -23,6 +23,70 @@ namespace Vidly2.Controllers
             _context.Dispose();
         }
 
+        public ActionResult Yeni()
+        {
+            var turler = _context.Turler.ToList();
+            var viewModel = new FilmFormViewModel()
+            {
+                Turler = turler
+            };
+
+            return View("FilmForm", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Kaydet(Film film)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new FilmFormViewModel()
+                {
+                    Film = film,
+                    Turler = _context.Turler.ToList()
+                };
+
+                return View("FilmForm", viewModel);      // if not valid, return the same view.
+            }
+
+            if (film.Id == 0)
+            {
+                film.EklenmeTarihi = DateTime.Now;
+                _context.Filmler.Add(film);                
+            }
+            else
+            {
+                var filmInDb = _context.Filmler.Single(f => f.Id == film.Id);
+
+                filmInDb.Ad = film.Ad;
+                filmInDb.VizyonTarihi = film.VizyonTarihi;
+                filmInDb.TurId = film.TurId;
+                filmInDb.StoktakiSayi = film.StoktakiSayi;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Filmler");
+        }
+
+        public ActionResult Duzenle(int id)
+        {
+            var film = _context.Filmler.SingleOrDefault(f => f.Id == id);
+
+            if (film == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new FilmFormViewModel
+            {
+                Film = film,
+                Turler =  _context.Turler.ToList()
+            };
+            
+            return View("FilmForm", viewModel);
+        }
+
         // GET: Film
         public ActionResult Index()
         {

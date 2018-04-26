@@ -24,21 +24,36 @@ namespace Vidly2.Controllers
         }
 
 
-        public ActionResult MusteriForm()
+        public ActionResult Yeni()
         {
             var uyelikTurleri = _context.UyelikTurleri.ToList();
             var viewModel = new MusteriFormViewModel
             {
+                Musteri = new Musteri(),
                 UyelikTurleri = uyelikTurleri
             };
 
-            return View(viewModel);
+            return View("MusteriForm", viewModel);
         }
 
         // Eger action larimiz modify data yapiyorsa HttpGet tarafindan erisilmemeli, Post oldugunu garantiledik.
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Kaydet(Musteri musteri) // model binding
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MusteriFormViewModel
+                {
+                    Musteri =  musteri,
+                    UyelikTurleri = _context.UyelikTurleri.ToList()
+                };
+
+                return View("MusteriForm", viewModel);      // if not valid, return the same view.
+            }
+
+            
+
             if (musteri.Id == 0)
             {
                 _context.Musteriler.Add(musteri);

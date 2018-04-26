@@ -14,7 +14,8 @@ namespace Vidly2.Models
         public byte SureAyCinsinden { get; set; }   // byte because we don't need value more than 12.
         public byte IndirimOrani { get; set; }  // percentage between 0 and 100.
 
-
+        public static readonly byte Bilinmeyen = 0;
+        public static readonly byte HarcadikcaOde = 1;
 
     }
 }
