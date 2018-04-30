@@ -25,7 +25,24 @@ namespace Vidly2.Controllers
             _context.Dispose();
         }
 
+        // GET: Musteriler
+        public ActionResult Index()
+        {
+            //            var musteriler = _context.Musteriler.Include(c => c.UyelikTuru).ToList();   // we can get all Musteriler in the database. Queried immediately using ToList().
+            //var musteriler = _context.Musteriler;
+            // When the above line is executed, entity framework is not going to query the database. This is what we call deferred execution.
+            // The queries are actually executed when we iterate over this musteriler object. (see Index view)
+            // if we call like _context.Musteriler.ToList(), it is immediately executed in the database.
+            //           return View(musteriler);
 
+            if (User.IsInRole(RolAdi.CanManageFilms))
+            {
+                return View("Liste");
+            }
+            return View("ReadOnlyListe");
+        }
+
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Yeni()
         {
             var uyelikTurleri = _context.UyelikTurleri.ToList();
@@ -41,6 +58,7 @@ namespace Vidly2.Controllers
         // Eger action larimiz modify data yapiyorsa HttpGet tarafindan erisilmemeli, Post oldugunu garantiledik.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Kaydet(Musteri musteri) // model binding
         {
             if (!ModelState.IsValid)
@@ -74,18 +92,7 @@ namespace Vidly2.Controllers
             return RedirectToAction("Index", "Musteriler");
         }
 
-        // GET: Musteriler
-        public ActionResult Index()
-        {
-            //            var musteriler = _context.Musteriler.Include(c => c.UyelikTuru).ToList();   // we can get all Musteriler in the database. Queried immediately using ToList().
-            //var musteriler = _context.Musteriler;
-            // When the above line is executed, entity framework is not going to query the database. This is what we call deferred execution.
-            // The queries are actually executed when we iterate over this musteriler object. (see Index view)
-            // if we call like _context.Musteriler.ToList(), it is immediately executed in the database.
-            //           return View(musteriler);
-            return View();
-        }
-
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Ayrintilar(int id)
         {
             var musteri = _context.Musteriler.Include(c => c.UyelikTuru).SingleOrDefault(c => c.Id == id);     // because of SingleOrDefault method, query is immediately executed again.
@@ -98,6 +105,7 @@ namespace Vidly2.Controllers
             return View(musteri);
         }
 
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Duzenle(int id)
         {
             var musteri = _context.Musteriler.SingleOrDefault(m => m.Id == id);

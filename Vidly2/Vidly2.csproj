@@ -505,13 +505,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Filmler\Liste.cshtml" />
     <Content Include="Views\Filmler\Rastgele.cshtml" />
-    <Content Include="Views\Musteriler\Index.cshtml" />
+    <Content Include="Views\Musteriler\Liste.cshtml" />
     <Content Include="Views\Musteriler\Ayrintilar.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Filmler\Ayrintilar.cshtml" />
     <Content Include="Views\Musteriler\MusteriForm.cshtml" />
     <Content Include="Views\Filmler\FilmForm.cshtml" />
     <Content Include="Views\Filmler\ReadOnlyListe.cshtml" />
+    <Content Include="Views\Musteriler\ReadOnlyListe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

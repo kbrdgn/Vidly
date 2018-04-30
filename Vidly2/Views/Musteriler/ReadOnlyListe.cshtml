@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Vidly2.Models.Musteri>
+@{
+    ViewBag.Title = "Müşteriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Müşteriler</h2>
+
+<table id="musteriler" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Müşteriler</th>
+        <th>Üyelik Türü</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $('#musteriler').DataTable({
+                ajax: {
+                    url: "/api/musteriler",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "ad"
+                    },
+                    {
+                        data: "uyelikTuru.ad"
+                    }
+                ]
+            });
+        });
+    </script>
+}
