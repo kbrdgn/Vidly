@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,18 +13,22 @@ namespace Vidly2.Controllers.Api
 {
     public class FilmlerController : ApiController
     {
-        private ApplicationDbContext _context;
+        private ApplicationUser.ApplicationDbContext _context;
 
         public FilmlerController()
         {
-            _context = new ApplicationDbContext();
+            _context = new ApplicationUser.ApplicationDbContext();
         }
 
         // GET /api/filmler
         [HttpGet]
         public IHttpActionResult GetFilmler()
         {
-            var filmlerDtos = _context.Filmler.ToList().Select(Mapper.Map<Film, FilmDto>);
+            var filmlerDtos = _context.Filmler.
+                Include(f => f.Tur).
+                ToList().
+                Select(Mapper.Map<Film, FilmDto>);
+
             return Ok(filmlerDtos);            
         }
 
@@ -43,6 +48,7 @@ namespace Vidly2.Controllers.Api
 
         // POST /api/filmler
         [HttpPost]
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public IHttpActionResult FilmOlustur(FilmDto filmDto)
         {
             if (!ModelState.IsValid)
@@ -62,6 +68,7 @@ namespace Vidly2.Controllers.Api
 
         // PUT /api/filmler
         [HttpPut]
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public IHttpActionResult FimiGuncelle(int id, FilmDto filmDto)
         {
             if (!ModelState.IsValid)
@@ -85,6 +92,7 @@ namespace Vidly2.Controllers.Api
 
         // DELETE /api/filmler/
         [HttpDelete]
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public IHttpActionResult FilmiSil(int id)
         {
             var filmInDb = _context.Filmler.SingleOrDefault(f => f.Id == id);

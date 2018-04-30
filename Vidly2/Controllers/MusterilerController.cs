@@ -5,17 +5,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly2.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Vidly2.ViewModels;
 
 namespace Vidly2.Controllers
 {
     public class MusterilerController : Controller
     {
-        private ApplicationDbContext _context;      // We need a DbContext to access the database. Initialize it in the constructor.
+        private ApplicationUser.ApplicationDbContext _context;      // We need a DbContext to access the database. Initialize it in the constructor.
 
         public MusterilerController()
         {
-            _context = new ApplicationDbContext(); // dbContext is a disposable (tek kullanımlık) object.
+            _context = new ApplicationUser.ApplicationDbContext(); // dbContext is a disposable (tek kullanımlık) object.
         }
 
         protected override void Dispose(bool disposing)
@@ -75,12 +77,13 @@ namespace Vidly2.Controllers
         // GET: Musteriler
         public ActionResult Index()
         {
-            var musteriler = _context.Musteriler.Include(c => c.UyelikTuru).ToList();   // we can get all Musteriler in the database. Queried immediately using ToList().
+            //            var musteriler = _context.Musteriler.Include(c => c.UyelikTuru).ToList();   // we can get all Musteriler in the database. Queried immediately using ToList().
             //var musteriler = _context.Musteriler;
             // When the above line is executed, entity framework is not going to query the database. This is what we call deferred execution.
             // The queries are actually executed when we iterate over this musteriler object. (see Index view)
             // if we call like _context.Musteriler.ToList(), it is immediately executed in the database.
-            return View(musteriler);
+            //           return View(musteriler);
+            return View();
         }
 
         public ActionResult Ayrintilar(int id)

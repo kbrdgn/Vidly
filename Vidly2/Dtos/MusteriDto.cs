@@ -18,7 +18,9 @@ namespace Vidly2.Dtos
         public bool BulteneAboneMi { get; set; }       
 
         [Required(ErrorMessage = "Lütfen bir üyelik türü seçiniz.")]
-        public byte UyelikTuruId { get; set; }  
+        public byte UyelikTuruId { get; set; }
+
+        public UyelikTuruDto UyelikTuru { get; set; }
 
 //        [UyeOlmakIcinMin18Yas]
         public DateTime? DogumTarihi { get; set; }

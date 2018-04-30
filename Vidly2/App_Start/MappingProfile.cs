@@ -17,6 +17,12 @@ namespace Vidly2.App_Start
 
             Mapper.CreateMap<Film, FilmDto>();
             Mapper.CreateMap<FilmDto, Film>();
+
+            Mapper.CreateMap<UyelikTuru, UyelikTuruDto>();
+            Mapper.CreateMap<UyelikTuruDto, UyelikTuru>();
+
+            Mapper.CreateMap<Tur, TurDto>();
+            Mapper.CreateMap<TurDto, Tur>();
         }
     }
 }

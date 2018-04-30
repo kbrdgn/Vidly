@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Vidly2.Models
@@ -55,29 +56,38 @@ namespace Vidly2.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Şifre")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Beni Hatırla?")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
         [Required]
+        [RegularExpression(@"^(\d{4})$", ErrorMessage = "Lütfen TC kimlik numaranızın son 4 hanesini doğru bir şekilde girdiğinizden emin olunuz.")]
+        [Display(Name = "TCKN Son 4 Hane")]
+        public string TcSon4Hane { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Telefon { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} en az {2} karakter uzunluğunda olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Şifre")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Şifre (Tekrar)")]
+        [Compare("Password", ErrorMessage = "Şifreniz uyuşmadı, lütfen doğru girdiğinizden emin olunuz.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -89,14 +99,14 @@ namespace Vidly2.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} en az {2} karakter uzunluğunda olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Şifre")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Şifre (Tekrar)")]
+        [Compare("Password", ErrorMessage = "Şifreniz uyuşmadı, lütfen doğru girdiğinizden emin olunuz.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

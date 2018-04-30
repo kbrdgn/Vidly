@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,18 +14,22 @@ namespace Vidly2.Controllers.Api
 {
     public class MusterilerController : ApiController
     {
-        private ApplicationDbContext _context;
+        private ApplicationUser.ApplicationDbContext _context;
 
         public MusterilerController()
         {
-            _context = new ApplicationDbContext();
+            _context = new ApplicationUser.ApplicationDbContext();
         }
 
         // GET /api/musteriler
         [HttpGet]
         public IHttpActionResult MusterileriGetir()
         {
-            var musterilerDtos = _context.Musteriler.ToList().Select(Mapper.Map<Musteri, MusteriDto>);
+            var musterilerDtos = _context.Musteriler.
+                Include(m => m.UyelikTuru).
+                ToList().
+                Select(Mapper.Map<Musteri, MusteriDto>);
+
             return Ok(musterilerDtos);
         }
 

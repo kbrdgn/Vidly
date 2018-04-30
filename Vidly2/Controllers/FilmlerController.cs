@@ -11,11 +11,11 @@ namespace Vidly2.Controllers
 {
     public class FilmlerController : Controller
     {
-        private ApplicationDbContext _context;
+        private ApplicationUser.ApplicationDbContext _context;
 
         public FilmlerController()
         {
-            _context = new ApplicationDbContext();
+            _context = new ApplicationUser.ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
@@ -23,6 +23,16 @@ namespace Vidly2.Controllers
             _context.Dispose();
         }
 
+        // GET: Film
+        public ActionResult Index()
+        {
+            if (User.IsInRole(RolAdi.CanManageFilms))
+                return View("Liste");
+
+            return View("ReadOnlyListe");
+        }
+
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Yeni()
         {
             var turler = _context.Turler.ToList();
@@ -36,6 +46,7 @@ namespace Vidly2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Kaydet(Film film)
         {
             if (!ModelState.IsValid)
@@ -69,6 +80,7 @@ namespace Vidly2.Controllers
             return RedirectToAction("Index", "Filmler");
         }
 
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Duzenle(int id)
         {
             var film = _context.Filmler.SingleOrDefault(f => f.Id == id);
@@ -87,14 +99,8 @@ namespace Vidly2.Controllers
             return View("FilmForm", viewModel);
         }
 
-        // GET: Film
-        public ActionResult Index()
-        {
-            var filmler = _context.Filmler.Include(f => f.Tur).ToList();
-            return View(filmler);
-        }
-
         // GET: Filmler/Ayrintilar/id
+        [Authorize(Roles = RolAdi.CanManageFilms)]
         public ActionResult Ayrintilar(int id)
         {
             var film = _context.Filmler.Include(f => f.Tur).SingleOrDefault(f => f.Id == id);

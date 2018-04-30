@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Vidly2.Models.Film>
+@{
+    ViewBag.Title = "Filmler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Filmler</h2>
+
+<table id="filmler" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Film</th>
+                <th>Tür</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            var table = $('#filmler').DataTable({
+                ajax: {
+                    url: "/api/filmler",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "ad"
+                    },
+                    {
+                        data: "tur.ad"
+                    }
+                ]
+            });            
+        });
+    </script>
+}

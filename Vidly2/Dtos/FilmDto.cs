@@ -18,6 +18,8 @@ namespace Vidly2.Dtos
         [Required(ErrorMessage = "Lütfen bir tür seçiniz.")]
         public byte TurId { get; set; }
 
+        public TurDto Tur { get; set; }
+
         public DateTime EklenmeTarihi { get; set; }
 
         [Required(ErrorMessage = "Lütfen vizyon tarihini giriniz.")]

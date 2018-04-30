@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Vidly2.Models.Film>
+@{
+    ViewBag.Title = "Filmler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Filmler</h2>
+
+<p>
+    @Html.ActionLink("YENİ FİLM", "Yeni", "Filmler", null, new { @class="btn btn-primary" })
+</p>
+
+<table id="filmler" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Film</th>
+                <th>Tür</th>
+                <th>Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            var table = $('#filmler').DataTable({
+                ajax: {
+                    url: "/api/filmler",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "ad",
+                        render: function(data, type, film) {
+                            return "<a href='/filmler/duzenle/" + film.id + "'>" + film.ad + "</a>";
+                        }
+                    },
+                    {
+                        data: "tur.ad"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn-link js-delete' data-film-id=" + data + ">Sil</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#filmler").on("click",
+                ".js-delete",
+                function() {
+                    var button = $(this);
+
+                    bootbox.confirm("Bu filmi silmek istediğinize emin misiniz?",
+                        function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/api/filmler/" + button.attr("data-film-id"),
+                                    method: "DELETE",
+                                    success: function () {
+                                        table.row(button.parents("tr")).remove().draw();
+                                    }
+                                });
+                            }
+                        });
+                });
+        });
+    </script>
+}

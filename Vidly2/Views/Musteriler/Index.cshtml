@@ -5,31 +5,64 @@
 }
 
 <h2>Müşteriler</h2>
-@if (!Model.Any())
-{
-    <p>Henüz hiç müşterimiz yok.</p>
-}
-else
-{
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Müşteriler</th>
-            <th>Üyelik Türü</th>
-            <th>İndirim Oranı</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var musteri in Model)     // here we iterate over our object and the query is actually executed here.
-        {
-            <tr>
-                <td>@Html.ActionLink(@musteri.Ad, "Duzenle", "Musteriler", new { id = musteri.Id }, null)</td>
-                <td>@musteri.UyelikTuru.Ad</td>
-                <td>%@musteri.UyelikTuru.IndirimOrani</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<table id="musteriler" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Müşteriler</th>
+        <th>Üyelik Türü</th>
+        <th>Sil</th>
 
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $('#musteriler').DataTable({
+                ajax: {
+                    url: "/api/musteriler",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "ad",
+                        render: function(data, type, musteri) {
+                            return "<a href='/musteriler/duzenle/" + musteri.id + "'>" + musteri.ad + "</a>";
+                        }
+                    },
+                    {
+                        data: "uyelikTuru.ad"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn-link js-delete' data-musteri-id=" + data + ">Sil</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#musteriler").on("click", ".js-delete", function() {
+                    var button = $(this);
+
+                    bootbox.confirm("Bu müşteriyi silmek istediğinize emin misiniz?",
+                        function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/api/musteriler/" + button.attr("data-musteri-id"),
+                                    method: "DELETE",
+                                    success: function() {
+                                        table.row(button.parents("tr")).remove().draw();
+                                    }
+                                });
+                            }
+                        });
+                });
+
+        });
+    </script>
+}
