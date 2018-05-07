@@ -31,6 +31,7 @@ namespace Vidly2.Models
             public DbSet<Film> Filmler { get; set; }
             public DbSet<UyelikTuru> UyelikTurleri { get; set; }
             public DbSet<Tur> Turler { get; set; }
+            public DbSet<Kira> Kiralar { get; set; }
 
             public ApplicationDbContext()
                 : base("DefaultConnection", throwIfV1Schema: false)

@@ -28,5 +28,8 @@ namespace Vidly2.Dtos
         [Required(ErrorMessage = "Lütfen stok sayısını giriniz.")]
         [Range(1, 20, ErrorMessage = "Stoktaki sayı 1 ile 20 arasında bir değer olmalıdır.")]
         public byte StoktakiSayi { get; set; }
+
+        [Required]
+        public int MevcutSayi { get; set; }
     }
 }

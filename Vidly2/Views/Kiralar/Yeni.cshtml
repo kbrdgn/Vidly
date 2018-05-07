@@ -1,0 +1,131 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Yeni Kira Formu";
+}
+
+<h2>Yeni Kira Formu</h2>
+
+<form id="yeniKira">
+    <div class="form-group">
+        <label>Müşteri</label>
+        <div class="tt-container">
+            <input id="musteri" name="musteri" data-rule-validMusteri="true" required type="text" value="" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Film</label>
+        <div class="tt-container">
+            <input id="film" name="film" data-rule-validFilm="true" type="text" value="" class="form-control" />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <ul id="filmler" class="list-group"></ul>
+        </div>
+    </div>
+    
+    
+    <button class="btn btn-primary">Gönder</button>
+</form>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var viewModel = {
+                filmIds: []
+        };
+
+            var musteriler = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ad'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/musteriler?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#musteri').typeahead({
+                minLength: 2,
+                highlight: true
+            },
+                {
+                    name: 'musteriler',
+                    display: 'ad',
+                    source: musteriler
+                }).on("typeahead:select", function(event, musteri) {
+                    viewModel.musteriId = musteri.id;
+                });
+
+
+
+            var filmler = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ad'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/filmler?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#film').typeahead({
+                    minLength: 2,
+                    highlight: true
+                },
+                {
+                    name: 'filmler',
+                    display: 'ad',
+                    source: filmler
+                }).on("typeahead:select",
+                function(event, film) {
+                    $("#filmler").append("<li class='list-group-item'>" + film.ad + "</li>");
+
+                    $("#film").typeahead("val", "");
+                   
+                    viewModel.filmIds.push(film.id);
+                });
+
+            $.validator.addMethod("validMusteri",
+                function() {
+                    return viewModel.musteriId && viewModel.musteriId !== 0;
+                }, "Lütfen geçerli bir müşteri seçin.");
+
+
+            $.validator.addMethod("validFilm",
+                function() {
+                    return viewModel.filmIds.length > 0;
+                }, "Lütfen geçerli bir film seçin.");
+
+
+            var validator =  $("#yeniKira").validate({
+                submitHandler: function() {
+                    $.ajax({
+                            url: "/api/kiralar",
+                            method: "post",
+                            data: viewModel
+                        })
+                        .done(function() {
+                            toastr.success("Filmleriniz başarılı bir şekilde kiralandı.");
+
+                            $("#musteri").typeahead("val", "");
+                            $("#film").typeahead("val", "");
+                            $("#filmler").empty();
+
+
+                            viewModel = { movieIds: [] };
+
+                            validator.resetForm();
+                        })
+                        .fail(function() {
+                            toastr.error("Üzgünüz, bilinmeyen bir hata oluştu :(");
+                        });
+
+                    return false; // to prevent from being submitted normally.
+                }
+            });
+        });
+    </script>
+}

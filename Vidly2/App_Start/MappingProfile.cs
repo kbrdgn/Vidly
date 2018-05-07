@@ -23,6 +23,9 @@ namespace Vidly2.App_Start
 
             Mapper.CreateMap<Tur, TurDto>();
             Mapper.CreateMap<TurDto, Tur>();
+
+            Mapper.CreateMap<Kira, KiraDto>();
+            Mapper.CreateMap<KiraDto, Kira>();
         }
     }
 }

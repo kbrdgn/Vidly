@@ -23,10 +23,15 @@ namespace Vidly2.Controllers.Api
 
         // GET /api/musteriler
         [HttpGet]
-        public IHttpActionResult MusterileriGetir()
+        public IHttpActionResult MusterileriGetir(string query = null)
         {
-            var musterilerDtos = _context.Musteriler.
-                Include(m => m.UyelikTuru).
+            var musterilerSorgu = _context.Musteriler
+                .Include(c => c.UyelikTuru);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                musterilerSorgu = musterilerSorgu.Where(c => c.Ad.Contains(query));
+
+            var musterilerDtos = musterilerSorgu.
                 ToList().
                 Select(Mapper.Map<Musteri, MusteriDto>);
 

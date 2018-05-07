@@ -205,12 +205,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmlerController.cs" />
+    <Compile Include="Controllers\Api\KiralarController.cs" />
     <Compile Include="Controllers\Api\MusterilerController.cs" />
     <Compile Include="Controllers\FilmlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KiralarController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusterilerController.cs" />
     <Compile Include="Dtos\FilmDto.cs" />
+    <Compile Include="Dtos\KiraDto.cs" />
     <Compile Include="Dtos\MusteriDto.cs" />
     <Compile Include="Dtos\TurDto.cs" />
     <Compile Include="Dtos\UyelikTuruDto.cs" />
@@ -253,11 +256,32 @@
     <Compile Include="Migrations\201804300901528_AddTelefonToApplicationUser.Designer.cs">
       <DependentUpon>201804300901528_AddTelefonToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804301333340_KiraDomainObjesiEklendi.cs" />
+    <Compile Include="Migrations\201804301333340_KiraDomainObjesiEklendi.Designer.cs">
+      <DependentUpon>201804301333340_KiraDomainObjesiEklendi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804301336479_KiraDomainObjesiEklendi1.cs" />
+    <Compile Include="Migrations\201804301336479_KiraDomainObjesiEklendi1.Designer.cs">
+      <DependentUpon>201804301336479_KiraDomainObjesiEklendi1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804301352231_KiraDomainObjesiEklendi2.cs" />
+    <Compile Include="Migrations\201804301352231_KiraDomainObjesiEklendi2.Designer.cs">
+      <DependentUpon>201804301352231_KiraDomainObjesiEklendi2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061714342_AddMevcutBilgisiToFilm.cs" />
+    <Compile Include="Migrations\201805061714342_AddMevcutBilgisiToFilm.Designer.cs">
+      <DependentUpon>201805061714342_AddMevcutBilgisiToFilm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805061802084_AddMevcutBilgisiToFilm1.cs" />
+    <Compile Include="Migrations\201805061802084_AddMevcutBilgisiToFilm1.Designer.cs">
+      <DependentUpon>201805061802084_AddMevcutBilgisiToFilm1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\VerifyCodeViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Kira.cs" />
     <Compile Include="Models\RolAdi.cs" />
     <Compile Include="Models\Tur.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -381,10 +405,15 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -394,6 +423,8 @@
     </Content>
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -469,6 +500,12 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -513,6 +550,7 @@
     <Content Include="Views\Filmler\FilmForm.cshtml" />
     <Content Include="Views\Filmler\ReadOnlyListe.cshtml" />
     <Content Include="Views\Musteriler\ReadOnlyListe.cshtml" />
+    <Content Include="Views\Kiralar\Yeni.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -557,6 +595,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804300901528_AddTelefonToApplicationUser.resx">
       <DependentUpon>201804300901528_AddTelefonToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301333340_KiraDomainObjesiEklendi.resx">
+      <DependentUpon>201804301333340_KiraDomainObjesiEklendi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301336479_KiraDomainObjesiEklendi1.resx">
+      <DependentUpon>201804301336479_KiraDomainObjesiEklendi1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301352231_KiraDomainObjesiEklendi2.resx">
+      <DependentUpon>201804301352231_KiraDomainObjesiEklendi2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061714342_AddMevcutBilgisiToFilm.resx">
+      <DependentUpon>201805061714342_AddMevcutBilgisiToFilm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805061802084_AddMevcutBilgisiToFilm1.resx">
+      <DependentUpon>201805061802084_AddMevcutBilgisiToFilm1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

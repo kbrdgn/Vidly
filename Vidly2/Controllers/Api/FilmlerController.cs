@@ -22,10 +22,16 @@ namespace Vidly2.Controllers.Api
 
         // GET /api/filmler
         [HttpGet]
-        public IHttpActionResult GetFilmler()
+        public IHttpActionResult GetFilmler(string query = null)
         {
-            var filmlerDtos = _context.Filmler.
-                Include(f => f.Tur).
+            var filmlerSorgu = _context.Filmler.Include(f => f.Tur).Where(f => f.MevcutSayi > 0);
+
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                filmlerSorgu = filmlerSorgu.Where(f => f.Ad.Contains(query));
+            }
+
+            var filmlerDtos = filmlerSorgu.
                 ToList().
                 Select(Mapper.Map<Film, FilmDto>);
 
